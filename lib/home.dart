@@ -13,7 +13,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late Databasehandler handler;
 
-  //create data awalan
+  //functions sini
+  //1. create data awalan
   Future<int> createUsers() async {
     User john = User(
         name: 'John', age: 24, country: 'Malaysia', email: 'john@gmail.com');
@@ -27,6 +28,32 @@ class _HomeState extends State<Home> {
     return await this.handler.insertUsers(listOfUsers);
   }
 
+  //2. Create new Data
+  void openWindowToCreateUser() {
+    AlertDialog openwindow = AlertDialog(
+      title: Text('Add New User'),
+      content: Container(
+        width: 250,
+        height: 270,
+      ),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('OK')),
+        TextButton(onPressed: () {
+          Navigator.pop(context);
+        }, child: Text('Cancel')),
+      ],
+    );
+    showDialog(
+        context: context,
+        builder: (context) {
+          return openwindow;
+        });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -34,7 +61,7 @@ class _HomeState extends State<Home> {
     // this.handler.initialiseDB().whenComplete(() async {
     //   await this.createUsers(); //create data awalan sekiranya perlu
     //   setState(() {
-        
+
     //   });
     // });
   }
@@ -66,6 +93,7 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           //call function utk add data
+          openWindowToCreateUser();
         },
         child: Icon(Icons.add),
       ),
