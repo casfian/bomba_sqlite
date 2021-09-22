@@ -146,6 +146,11 @@ class _HomeState extends State<Home> {
                       child: ListTile(
                         title: Text(snapshot.data![index].name),
                         subtitle: Text(snapshot.data![index].email.toString()),
+                        trailing: IconButton(
+                          onPressed: () {
+                            //code utk edit
+                          },
+                          icon: Icon(Icons.edit),),
                       ),
                     );
                   });
