@@ -29,22 +29,68 @@ class _HomeState extends State<Home> {
   }
 
   //2. Create new Data
+  Future<int> adduser(
+      String name, int age, String country, String email) async {
+    //define user
+    User user = User(name: name, age: age, country: country, email: email);
+    //code dari Handler
+    return await this.handler.insertUser(user);
+  }
+
   void openWindowToCreateUser() {
+    final _nameController = TextEditingController();
+    final _ageController = TextEditingController();
+    final _countryController = TextEditingController();
+    final _emailController = TextEditingController();
+
     AlertDialog openwindow = AlertDialog(
       title: Text('Add New User'),
       content: Container(
         width: 250,
         height: 270,
+        child: Column(
+          children: [
+            TextField(
+              controller: _nameController,
+              decoration: InputDecoration(
+                labelText: 'Name:',
+              ),
+            ),
+            TextField(
+                controller: _ageController,
+                decoration: InputDecoration(
+                  labelText: 'Age:',
+                )),
+            TextField(
+                controller: _countryController,
+                decoration: InputDecoration(
+                  labelText: 'Country:',
+                )),
+            TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Email:',
+                )),
+          ],
+        ),
       ),
       actions: [
         TextButton(
             onPressed: () {
+              //function utk tambah data
+              adduser(_nameController.text, int.parse(_ageController.text),
+                  _countryController.text, _emailController.text);
+              setState(() {
+                //utk refresh screen
+              });
               Navigator.pop(context);
             },
             child: Text('OK')),
-        TextButton(onPressed: () {
-          Navigator.pop(context);
-        }, child: Text('Cancel')),
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Cancel')),
       ],
     );
     showDialog(
