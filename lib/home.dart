@@ -126,9 +126,27 @@ class _HomeState extends State<Home> {
               return ListView.builder(
                   itemCount: snapshot.data?.length,
                   itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(snapshot.data![index].name),
-                      subtitle: Text(snapshot.data![index].email.toString()),
+                    return Dismissible(
+                      key: ValueKey<int>(snapshot.data![index].id!),
+                      direction: DismissDirection.startToEnd,
+                      background: Container(
+                        color: Colors.red,
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        alignment: Alignment.centerLeft,
+                      ),
+                      onDismissed: (DismissDirection direction) async {
+                        //action sini
+                        await this
+                            .handler
+                            .deleteUser(snapshot.data![index].id!);
+                        setState(() {
+                          snapshot.data!.remove(snapshot.data![index]);
+                        });
+                      },
+                      child: ListTile(
+                        title: Text(snapshot.data![index].name),
+                        subtitle: Text(snapshot.data![index].email.toString()),
+                      ),
                     );
                   });
             } else {
