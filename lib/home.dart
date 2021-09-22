@@ -7,14 +7,21 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Material App Bar'),
-        ),
-        body: Center(
-          child: Container(
-            child: Text('Hello World'),
-          ),
-        ),
-      );
+      appBar: AppBar(
+        title: Text('Sqlite Database Demo'),
+      ),
+      body: ListView.builder(
+          itemCount: 25,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text('Data Users'),
+            );
+          }),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              //call function utk add data
+            } ,
+            child: Icon(Icons.add),),
+    );
   }
 }
