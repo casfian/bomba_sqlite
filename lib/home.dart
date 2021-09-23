@@ -1,4 +1,5 @@
 import 'package:bomba_sqlite/databasehandler.dart';
+import 'package:bomba_sqlite/edit.dart';
 import 'package:bomba_sqlite/user.dart';
 import 'package:flutter/material.dart';
 
@@ -149,8 +150,17 @@ class _HomeState extends State<Home> {
                         trailing: IconButton(
                           onPressed: () {
                             //code utk edit
+                            Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Edit(
+                                            passUser: snapshot.data![index])))
+                                .whenComplete(() {
+                              setState(() {});
+                            });
                           },
-                          icon: Icon(Icons.edit),),
+                          icon: Icon(Icons.edit),
+                        ),
                       ),
                     );
                   });
